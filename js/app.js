@@ -1,24 +1,29 @@
 /* =====================================================
-   MELODIX — APP.JS v2.1 FIXED
-   iTunes API + YouTube Data v3 API
+   MELODIX — APP.JS v2.2
+   Hindi & Indian Songs Default
+   2026 Updated
    ===================================================== */
 
 'use strict';
 
 /* ─── CONFIG ─── */
 const CONFIG = {
-  // API Key blank rakho — Google Console se nayi restricted key lo
   YT_API_KEY: 'AIzaSyBZvVmwusqmN1b-vVbLtFfHLo83w9FIRF4',
   ITUNES_BASE: 'https://itunes.apple.com/search',
+
+  // Hindi/Indian songs default
   GENRE_QUERIES: {
-    pop:       'pop hits 2024',
-    hiphop:    'hip hop rap 2024',
-    electronic:'electronic dance music',
-    rock:      'rock hits 2024',
-    jazz:      'jazz music',
-    classical: 'classical music beethoven'
+    pop:       'hindi pop songs 2026',
+    hiphop:    'hindi rap songs desi hip hop',
+    electronic:'hindi electronic remix 2026',
+    rock:      'hindi rock songs indian rock',
+    jazz:      'indian jazz fusion music',
+    classical: 'indian classical music raag',
   },
-  FEATURED_QUERY: 'top hits 2024',
+
+  // Default — Hindi hits
+  FEATURED_QUERY: 'hindi hits 2026',
+  TRENDING_QUERY: 'bollywood trending 2026',
   DEFAULT_LIMIT: 20,
 };
 
@@ -82,7 +87,6 @@ const DOM = {
   playlistEmpty:      $('playlistEmpty'),
   resultCount:        $('resultCount'),
 
-  // Mini Player
   miniPlayer:         $('miniPlayer'),
   miniPlayerExpand:   $('miniPlayerExpand'),
   miniPlayerArt:      $('miniPlayerArt'),
@@ -93,7 +97,6 @@ const DOM = {
   miniPlayIcon:       $('miniPlayIcon'),
   miniNextBtn:        $('miniNextBtn'),
 
-  // Expanded Player
   expandedPlayer:     $('expandedPlayer'),
   expandedBg:         $('expandedBg'),
   expandedDisc:       $('expandedDisc'),
@@ -124,7 +127,6 @@ const DOM = {
   detailAlbumFull:    $('detailAlbumFull'),
   detailDuration:     $('detailDuration'),
 
-  // Modals
   playlistModal:      $('playlistModal'),
   modalTitle:         $('modalTitle'),
   modalClose:         $('modalClose'),
@@ -189,9 +191,9 @@ function showToast(message, type = 'info', icon = 'info') {
 
 function getGreeting() {
   const h = new Date().getHours();
-  if (h < 12) return 'Good Morning';
-  if (h < 17) return 'Good Afternoon';
-  return 'Good Evening';
+  if (h < 12) return 'Suprabhat';
+  if (h < 17) return 'Namaskar';
+  return 'Shubh Sandhya';
 }
 
 /* ─────────────────────────────────────────
@@ -213,113 +215,114 @@ async function fetchITunes(query, limit = CONFIG.DEFAULT_LIMIT) {
   }
 }
 
+/* ─── Demo Songs — Hindi/Indian ─── */
 function getDemoSongs() {
   return [
     {
-      trackId: 1001,
-      trackName: "Blinding Lights",
-      artistName: "The Weeknd",
-      collectionName: "After Hours",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/70/0f/26/700f2688-7787-6f6f-1c50-a2b3ecf85ffb/886449935251.jpg/100x100bb.jpg",
-      trackTimeMillis: 200040,
-      primaryGenreName: "Pop",
-      releaseDate: "2020-03-20T07:00:00Z"
+      trackId: 2001,
+      trackName: "Kesariya",
+      artistName: "Arijit Singh",
+      collectionName: "Brahmastra",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/a3/a3/a3/a3a3a3a3-a3a3-a3a3-a3a3-a3a3a3a3a3a3/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 264000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2022-07-17T07:00:00Z"
     },
     {
-      trackId: 1002,
-      trackName: "Stay",
-      artistName: "The Kid LAROI & Justin Bieber",
-      collectionName: "F*CK LOVE 3",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/ba/96/6f/ba966f5a-7c7c-8b66-f54e-8c4e7a9a7c7a/196589464750.jpg/100x100bb.jpg",
-      trackTimeMillis: 141000,
-      primaryGenreName: "Hip-Hop",
-      releaseDate: "2021-07-09T07:00:00Z"
+      trackId: 2002,
+      trackName: "Raataan Lambiyan",
+      artistName: "Jubin Nautiyal & Asees Kaur",
+      collectionName: "Shershaah",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b2/b2/b2/b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 255000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2021-07-13T07:00:00Z"
     },
     {
-      trackId: 1003,
-      trackName: "As It Was",
-      artistName: "Harry Styles",
-      collectionName: "Harry's House",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/9e/60/17/9e601700-5432-1b6a-9b13-de0d1e0e5f9f/886449990061.jpg/100x100bb.jpg",
-      trackTimeMillis: 167303,
-      primaryGenreName: "Pop",
-      releaseDate: "2022-04-01T07:00:00Z"
+      trackId: 2003,
+      trackName: "Tum Hi Ho",
+      artistName: "Arijit Singh",
+      collectionName: "Aashiqui 2",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/c3/c3/c3/c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 262000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2013-04-26T07:00:00Z"
     },
     {
-      trackId: 1004,
-      trackName: "Levitating",
-      artistName: "Dua Lipa",
-      collectionName: "Future Nostalgia",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e3/68/8c/e3688cbf-b9c8-c057-8ecb-e0bd0d0aa2c0/190295140424.jpg/100x100bb.jpg",
-      trackTimeMillis: 203000,
-      primaryGenreName: "Pop",
-      releaseDate: "2020-10-01T07:00:00Z"
+      trackId: 2004,
+      trackName: "Tera Ban Jaunga",
+      artistName: "Akhil Sachdeva & Tulsi Kumar",
+      collectionName: "Kabir Singh",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/d4/d4/d4/d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 237000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2019-06-21T07:00:00Z"
     },
     {
-      trackId: 1005,
-      trackName: "Peaches",
-      artistName: "Justin Bieber",
-      collectionName: "Justice",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8a/aa/74/8aaa7449-e5ea-3e69-0dd0-1f0e8a5b9f9a/00602435835297.jpg/100x100bb.jpg",
-      trackTimeMillis: 198000,
-      primaryGenreName: "Pop",
-      releaseDate: "2021-03-19T07:00:00Z"
+      trackId: 2005,
+      trackName: "Apna Bana Le",
+      artistName: "Arijit Singh",
+      collectionName: "Bhediya",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/e5/e5/e5/e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 248000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2022-11-25T07:00:00Z"
     },
     {
-      trackId: 1006,
-      trackName: "INDUSTRY BABY",
-      artistName: "Lil Nas X",
-      collectionName: "MONTERO",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/9c/13/e8/9c13e8f2-53d8-2f04-3b7b-f45b0f7a1e5f/196589091246.jpg/100x100bb.jpg",
-      trackTimeMillis: 212000,
-      primaryGenreName: "Hip-Hop",
-      releaseDate: "2021-07-23T07:00:00Z"
+      trackId: 2006,
+      trackName: "Param Sundari",
+      artistName: "Shreya Ghoshal",
+      collectionName: "Mimi",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/f6/f6/f6/f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 195000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2021-07-30T07:00:00Z"
     },
     {
-      trackId: 1007,
-      trackName: "good 4 u",
-      artistName: "Olivia Rodrigo",
-      collectionName: "SOUR",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5c/6d/c8/5c6dc891-8b0f-3c3b-8b8b-8b8b8b8b8b8b/196589124517.jpg/100x100bb.jpg",
-      trackTimeMillis: 178000,
-      primaryGenreName: "Pop",
-      releaseDate: "2021-05-14T07:00:00Z"
+      trackId: 2007,
+      trackName: "Kahani",
+      artistName: "Ankur Tewari",
+      collectionName: "Saans Lo",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a7/a7/a7/a7a7a7a7-a7a7-a7a7-a7a7-a7a7a7a7a7a7/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 218000,
+      primaryGenreName: "Hindi Pop",
+      releaseDate: "2022-03-15T07:00:00Z"
     },
     {
-      trackId: 1008,
-      trackName: "Watermelon Sugar",
-      artistName: "Harry Styles",
-      collectionName: "Fine Line",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/64/8b/e0/648be0f2-fcf0-9c96-e0a1-f5ae2b6bbb87/19UMGIM56091.rgb.jpg/100x100bb.jpg",
-      trackTimeMillis: 174000,
-      primaryGenreName: "Pop",
-      releaseDate: "2019-11-16T07:00:00Z"
+      trackId: 2008,
+      trackName: "Mann Mera",
+      artistName: "Gajendra Verma",
+      collectionName: "Mann Mera",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b8/b8/b8/b8b8b8b8-b8b8-b8b8-b8b8-b8b8b8b8b8b8/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 225000,
+      primaryGenreName: "Hindi Pop",
+      releaseDate: "2014-01-01T07:00:00Z"
     },
     {
-      trackId: 1009,
-      trackName: "drivers license",
-      artistName: "Olivia Rodrigo",
-      collectionName: "SOUR",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5c/6d/c8/5c6dc891-8b0f-3c3b-8b8b-8b8b8b8b8b8b/196589124517.jpg/100x100bb.jpg",
-      trackTimeMillis: 242000,
-      primaryGenreName: "Pop",
-      releaseDate: "2021-01-08T07:00:00Z"
+      trackId: 2009,
+      trackName: "Chaiyya Chaiyya",
+      artistName: "Sukhwinder Singh",
+      collectionName: "Dil Se",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/c9/c9/c9/c9c9c9c9-c9c9-c9c9-c9c9-c9c9c9c9c9c9/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 298000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "1998-08-21T07:00:00Z"
     },
     {
-      trackId: 1010,
-      trackName: "Save Your Tears",
-      artistName: "The Weeknd",
-      collectionName: "After Hours",
-      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/70/0f/26/700f2688-7787-6f6f-1c50-a2b3ecf85ffb/886449935251.jpg/100x100bb.jpg",
-      trackTimeMillis: 215000,
-      primaryGenreName: "Pop",
-      releaseDate: "2020-03-20T07:00:00Z"
+      trackId: 2010,
+      trackName: "Ik Vaari Aa",
+      artistName: "Arijit Singh",
+      collectionName: "Raabta",
+      artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/da/da/da/dadadadada-dada-dada-dada-dadadadadada/cover.jpg/100x100bb.jpg",
+      trackTimeMillis: 271000,
+      primaryGenreName: "Bollywood",
+      releaseDate: "2017-06-09T07:00:00Z"
     },
   ];
 }
 
 /* ─────────────────────────────────────────
-   YOUTUBE API — ORIGINAL WORKING VERSION
+   YOUTUBE API
 ───────────────────────────────────────── */
 async function searchYouTube(query) {
   if (!CONFIG.YT_API_KEY || CONFIG.YT_API_KEY === '') {
@@ -330,10 +333,7 @@ async function searchYouTube(query) {
     const res = await fetch(url);
     if (!res.ok) throw new Error('YT API Error');
     const data = await res.json();
-    if (data.items && data.items.length > 0) {
-      return data.items[0].id.videoId;
-    }
-    return null;
+    return data.items?.[0]?.id?.videoId || null;
   } catch (err) {
     console.error('YouTube API Error:', err);
     return null;
@@ -341,7 +341,7 @@ async function searchYouTube(query) {
 }
 
 /* ─────────────────────────────────────────
-   YOUTUBE PLAYER — ORIGINAL WORKING VERSION
+   YOUTUBE PLAYER
 ───────────────────────────────────────── */
 window.onYouTubeIframeAPIReady = function () {
   STATE.ytPlayer = new YT.Player('ytPlayer', {
@@ -366,9 +366,7 @@ window.onYouTubeIframeAPIReady = function () {
       },
       onStateChange: (e) => onYTStateChange(e),
       onError: (e) => {
-        console.error('YT Player Error:', e.data);
-        showToast('Playback error', 'error', 'alert-circle');
-        // Try simulate karo agar error aaye
+        console.error('YT Error:', e.data);
         if (STATE.currentSong) simulatePlayback(STATE.currentSong);
       }
     }
@@ -388,13 +386,11 @@ function onYTStateChange(e) {
     STATE.isPlaying = false;
     updateAllPlayIcons(false);
     handleSongEnd();
-  } else if (e.data === s.BUFFERING) {
-    console.log('Buffering...');
   }
 }
 
 /* ─────────────────────────────────────────
-   PLAY SONG — ORIGINAL WORKING METHOD
+   PLAY SONG
 ───────────────────────────────────────── */
 async function playSong(song, autoOpenPlayer = true) {
   if (!song) return;
@@ -404,32 +400,27 @@ async function playSong(song, autoOpenPlayer = true) {
   updateMiniPlayer(song);
   updateExpandedPlayer(song);
 
-  // Auto open expanded player
   if (autoOpenPlayer) {
     openExpandedPlayer();
   }
 
-  // Search YouTube
   const ytQuery = `${song.artistName} ${song.trackName} official audio`;
   const videoId = await searchYouTube(ytQuery);
 
   if (videoId && STATE.ytReady && STATE.ytPlayer) {
     STATE.currentVideoId = videoId;
-    // Original working method
     STATE.ytPlayer.loadVideoById(videoId);
     STATE.ytPlayer.setVolume(STATE.isMuted ? 0 : STATE.volume * 100);
   } else {
-    // No API key ya error — simulate
     simulatePlayback(song);
   }
 
-  // Vinyl spin karo
   $$('.vinyl__disc, .expanded-vinyl__disc')
     .forEach(el => el.classList.add('spinning'));
 }
 
 /* ─────────────────────────────────────────
-   DEMO SIMULATION (jab YT API na ho)
+   DEMO SIMULATION
 ───────────────────────────────────────── */
 let demoTimer = null;
 let demoProgress = 0;
@@ -509,7 +500,7 @@ function updateWaveform(pct) {
 }
 
 /* ─────────────────────────────────────────
-   PLAYER UI UPDATES
+   PLAYER UI
 ───────────────────────────────────────── */
 function updateMiniPlayer(song) {
   const artUrl = song.artworkUrl100?.replace('100x100', '300x300') || '';
@@ -535,22 +526,38 @@ function updateExpandedPlayer(song) {
   DOM.detailDuration.textContent = formatTime(song.trackTimeMillis);
   updateFavUI(song.trackId);
   document.title = `${song.trackName} — Melodix`;
-
-  // Hero banner bhi update karo
   const bg = `url(${artUrl})`;
-  DOM.heroBannerBg.style.backgroundImage = bg;
-  DOM.heroBannerArt.style.backgroundImage = bg;
+  if (DOM.heroBannerBg) DOM.heroBannerBg.style.backgroundImage = bg;
+  if (DOM.heroBannerArt) DOM.heroBannerArt.style.backgroundImage = bg;
 }
 
 function updateAllPlayIcons(isPlaying) {
   const icon = isPlaying ? 'pause' : 'play';
   STATE.isPlaying = isPlaying;
 
+  // ── Android Bridge Call ──
+  if (window.Android) {
+    try {
+      if (isPlaying && STATE.currentSong) {
+        window.Android.onSongPlay(
+          STATE.currentSong.trackName  || 'Unknown',
+          STATE.currentSong.artistName || 'Unknown Artist'
+        );
+      } else if (!isPlaying && STATE.currentSong) {
+        window.Android.onSongPause(
+          STATE.currentSong.trackName  || 'Unknown',
+          STATE.currentSong.artistName || 'Unknown Artist'
+        );
+      }
+    } catch (e) {
+      console.log('Android bridge:', e);
+    }
+  }
+
   // Mini player icon
   if (DOM.miniPlayIcon) {
     DOM.miniPlayIcon.setAttribute('data-lucide', icon);
     lucide.createIcons({ el: DOM.miniPlayPauseBtn });
-    // White color fix for mini play btn
     const svg = DOM.miniPlayPauseBtn.querySelector('svg');
     if (svg) {
       svg.style.stroke = '#000000';
@@ -558,7 +565,7 @@ function updateAllPlayIcons(isPlaying) {
     }
   }
 
-  // Expanded player icon
+  // Expanded icon
   if (DOM.expPlayIcon) {
     DOM.expPlayIcon.setAttribute('data-lucide', icon);
     lucide.createIcons({ el: DOM.expPlayPauseBtn });
@@ -569,7 +576,7 @@ function updateAllPlayIcons(isPlaying) {
     }
   }
 
-  // Vinyl spin
+  // Vinyl
   $$('.vinyl__disc, .expanded-vinyl__disc').forEach(el => {
     el.classList.toggle('spinning', isPlaying);
   });
@@ -588,11 +595,10 @@ function updateFavUI(trackId) {
 }
 
 /* ─────────────────────────────────────────
-   EXPANDED PLAYER OPEN / CLOSE
+   EXPANDED PLAYER
 ───────────────────────────────────────── */
 function openExpandedPlayer() {
   DOM.expandedPlayer.classList.add('open');
-  // Vinyl update
   if (STATE.isPlaying) {
     $$('.expanded-vinyl__disc').forEach(el => el.classList.add('spinning'));
   }
@@ -603,28 +609,21 @@ function closeExpandedPlayer() {
 }
 
 /* ─────────────────────────────────────────
-   PLAYBACK CONTROLS
+   CONTROLS
 ───────────────────────────────────────── */
 function togglePlayPause() {
   if (!STATE.currentSong) {
-    showToast('Select a song first!', 'info', 'music');
+    showToast('Pehle koi gaana chuniye!', 'info', 'music');
     return;
   }
   if (STATE.ytReady && STATE.ytPlayer) {
-    if (STATE.isPlaying) {
-      STATE.ytPlayer.pauseVideo();
-    } else {
-      STATE.ytPlayer.playVideo();
-    }
+    if (STATE.isPlaying) STATE.ytPlayer.pauseVideo();
+    else STATE.ytPlayer.playVideo();
   } else {
-    // Demo mode toggle
     STATE.isPlaying = !STATE.isPlaying;
     updateAllPlayIcons(STATE.isPlaying);
-    if (!STATE.isPlaying) {
-      clearInterval(demoTimer);
-    } else {
-      simulatePlayback(STATE.currentSong);
-    }
+    if (!STATE.isPlaying) clearInterval(demoTimer);
+    else simulatePlayback(STATE.currentSong);
   }
 }
 
@@ -633,15 +632,14 @@ function seekTo(pct) {
     const dur = STATE.ytPlayer.getDuration();
     STATE.ytPlayer.seekTo((pct / 100) * dur, true);
   } else {
-    demoProgress = (pct / 100) * ((STATE.currentSong?.trackTimeMillis || 210000) / 1000);
+    demoProgress = (pct / 100) *
+      ((STATE.currentSong?.trackTimeMillis || 210000) / 1000);
   }
 }
 
 function setVolume(pct) {
   STATE.volume = pct / 100;
-  if (STATE.ytReady && STATE.ytPlayer) {
-    STATE.ytPlayer.setVolume(pct);
-  }
+  if (STATE.ytReady && STATE.ytPlayer) STATE.ytPlayer.setVolume(pct);
   if (DOM.expVolumeFill) DOM.expVolumeFill.style.width = `${pct}%`;
 }
 
@@ -657,7 +655,7 @@ function playPrev() {
   if (STATE.history.length > 1) {
     playSong(STATE.history[1], false);
   } else {
-    showToast('No previous song', 'info', 'skip-back');
+    showToast('Koi pichla gaana nahi', 'info', 'skip-back');
   }
 }
 
@@ -669,15 +667,14 @@ function playNext() {
   } else if (STATE.featuredSongs.length > 0) {
     let nextSong;
     if (STATE.shuffle) {
-      const idx = Math.floor(Math.random() * STATE.featuredSongs.length);
-      nextSong = STATE.featuredSongs[idx];
+      nextSong = STATE.featuredSongs[
+        Math.floor(Math.random() * STATE.featuredSongs.length)
+      ];
     } else {
-      const currentIdx = STATE.featuredSongs.findIndex(
+      const idx = STATE.featuredSongs.findIndex(
         s => s.trackId === STATE.currentSong?.trackId
       );
-      nextSong = STATE.featuredSongs[
-        (currentIdx + 1) % STATE.featuredSongs.length
-      ];
+      nextSong = STATE.featuredSongs[(idx + 1) % STATE.featuredSongs.length];
     }
     playSong(nextSong, false);
   }
@@ -686,7 +683,10 @@ function playNext() {
 function toggleShuffle() {
   STATE.shuffle = !STATE.shuffle;
   DOM.expShuffleBtn?.classList.toggle('active', STATE.shuffle);
-  showToast(STATE.shuffle ? 'Shuffle On' : 'Shuffle Off', 'info', 'shuffle');
+  showToast(
+    STATE.shuffle ? 'Shuffle On' : 'Shuffle Off',
+    'info', 'shuffle'
+  );
 }
 
 function toggleRepeat() {
@@ -696,9 +696,11 @@ function toggleRepeat() {
   [DOM.expRepeatBtn].forEach(btn => {
     if (!btn) return;
     btn.classList.toggle('active', STATE.repeat !== 'none');
-    const icon = btn.querySelector('[data-lucide]');
-    if (icon) {
-      icon.setAttribute('data-lucide', STATE.repeat === 'one' ? 'repeat-1' : 'repeat');
+    const ic = btn.querySelector('[data-lucide]');
+    if (ic) {
+      ic.setAttribute('data-lucide',
+        STATE.repeat === 'one' ? 'repeat-1' : 'repeat'
+      );
       lucide.createIcons({ el: btn });
     }
   });
@@ -720,10 +722,11 @@ function handleSongEnd() {
     return;
   }
   if (STATE.repeat === 'all' && STATE.featuredSongs.length > 0) {
-    const next = STATE.featuredSongs[
-      Math.floor(Math.random() * STATE.featuredSongs.length)
-    ];
-    playSong(next, false);
+    playSong(
+      STATE.featuredSongs[
+        Math.floor(Math.random() * STATE.featuredSongs.length)
+      ], false
+    );
     return;
   }
   updateAllPlayIcons(false);
@@ -738,10 +741,10 @@ function toggleFavorite(song) {
   const idx = STATE.favorites.findIndex(f => f.trackId === song.trackId);
   if (idx === -1) {
     STATE.favorites.unshift(song);
-    showToast('Added to Favorites', 'success', 'heart');
+    showToast('Favorites mein add kiya', 'success', 'heart');
   } else {
     STATE.favorites.splice(idx, 1);
-    showToast('Removed from Favorites', 'info', 'heart');
+    showToast('Favorites se hataya', 'info', 'heart');
   }
   saveFavorites();
   updateFavUI(song.trackId);
@@ -765,7 +768,7 @@ function renderFavorites() {
 ───────────────────────────────────────── */
 function addToQueue(song) {
   STATE.queue.push(song);
-  showToast(`Added to Queue: ${song.trackName}`, 'success', 'list-plus');
+  showToast(`Queue mein add: ${song.trackName}`, 'success', 'list-plus');
   renderQueue();
 }
 
@@ -822,7 +825,7 @@ function renderRecentList() {
 ───────────────────────────────────────── */
 function createPlaylist(name) {
   if (!name.trim()) {
-    showToast('Enter playlist name', 'info', 'alert-circle');
+    showToast('Playlist ka naam likhiye', 'info', 'alert-circle');
     return null;
   }
   const pl = {
@@ -834,7 +837,7 @@ function createPlaylist(name) {
   STATE.playlists.unshift(pl);
   savePlaylists();
   renderPlaylists();
-  showToast(`Created: ${pl.name}`, 'success', 'list-music');
+  showToast(`Playlist bani: ${pl.name}`, 'success', 'list-music');
   return pl;
 }
 
@@ -842,20 +845,20 @@ function deletePlaylist(id) {
   STATE.playlists = STATE.playlists.filter(p => p.id !== id);
   savePlaylists();
   renderPlaylists();
-  showToast('Playlist deleted', 'info', 'trash-2');
+  showToast('Playlist delete ho gayi', 'info', 'trash-2');
 }
 
 function addSongToPlaylist(playlistId, song) {
   const pl = STATE.playlists.find(p => p.id === playlistId);
   if (!pl) return;
   if (pl.songs.find(s => s.trackId === song.trackId)) {
-    showToast('Already in playlist', 'info', 'info');
+    showToast('Gaana pehle se hai playlist mein', 'info', 'info');
     return;
   }
   pl.songs.unshift(song);
   savePlaylists();
   renderPlaylists();
-  showToast(`Added to "${pl.name}"`, 'success', 'check');
+  showToast(`"${pl.name}" mein add kiya`, 'success', 'check');
 }
 
 function renderPlaylists() {
@@ -866,9 +869,9 @@ function renderPlaylists() {
     return;
   }
   DOM.playlistEmpty.style.display = 'none';
-  STATE.playlists.forEach((pl, i) => {
-    DOM.playlistsGrid.appendChild(createPlaylistCard(pl, i));
-  });
+  STATE.playlists.forEach((pl, i) =>
+    DOM.playlistsGrid.appendChild(createPlaylistCard(pl, i))
+  );
 }
 
 function createPlaylistCard(pl, index) {
@@ -877,25 +880,20 @@ function createPlaylistCard(pl, index) {
   card.style.animationDelay = `${index * 0.05}s`;
 
   const arts = pl.songs.slice(0, 4)
-    .map(s => s.artworkUrl100 || '')
-    .filter(Boolean);
+    .map(s => s.artworkUrl100 || '').filter(Boolean);
 
   let artHTML = '';
   if (arts.length === 0) {
-    artHTML = `
-      <div class="playlist-card__art-placeholder">
-        <i data-lucide="list-music"></i>
-      </div>`;
+    artHTML = `<div class="playlist-card__art-placeholder">
+      <i data-lucide="list-music"></i></div>`;
   } else if (arts.length < 4) {
-    artHTML = `
-      <div class="playlist-card__art" style="display:flex;align-items:center;justify-content:center;">
-        <img src="${arts[0]}" style="width:100%;height:150px;object-fit:cover;"/>
-      </div>`;
+    artHTML = `<div class="playlist-card__art"
+      style="display:flex;align-items:center;justify-content:center;">
+      <img src="${arts[0]}"
+        style="width:100%;height:150px;object-fit:cover;"/></div>`;
   } else {
-    artHTML = `
-      <div class="playlist-card__art">
-        ${arts.map(a => `<img src="${a}" alt=""/>`).join('')}
-      </div>`;
+    artHTML = `<div class="playlist-card__art">
+      ${arts.map(a => `<img src="${a}" alt=""/>`).join('')}</div>`;
   }
 
   card.innerHTML = `
@@ -903,10 +901,10 @@ function createPlaylistCard(pl, index) {
     <div class="playlist-card__info">
       <p class="playlist-card__name">${pl.name}</p>
       <p class="playlist-card__count">
-        ${pl.songs.length} song${pl.songs.length !== 1 ? 's' : ''}
+        ${pl.songs.length} gaana${pl.songs.length !== 1 ? 'e' : ''}
       </p>
     </div>
-    <button class="playlist-card__delete" title="Delete playlist">
+    <button class="playlist-card__delete" title="Delete">
       <i data-lucide="trash-2"></i>
     </button>
   `;
@@ -924,14 +922,14 @@ function createPlaylistCard(pl, index) {
 
 function openPlaylistDetail(pl) {
   switchSection('search');
-  DOM.resultCount.textContent = `${pl.songs.length} songs`;
-
+  DOM.resultCount.textContent = `${pl.songs.length} gaane`;
   const titleEl = document.querySelector('#section-search .section__title');
   if (titleEl) {
     titleEl.innerHTML = `<i data-lucide="list-music"></i> ${pl.name}`;
-    lucide.createIcons({ el: document.querySelector('#section-search .section__header') });
+    lucide.createIcons({
+      el: document.querySelector('#section-search .section__header')
+    });
   }
-
   DOM.searchGrid.innerHTML = '';
   if (!pl.songs.length) {
     DOM.searchEmpty.style.display = 'flex';
@@ -947,8 +945,9 @@ function openAddToPlaylistModal(song) {
 
   if (!STATE.playlists.length) {
     DOM.playlistSelectList.innerHTML = `
-      <p style="color:var(--text-muted);font-size:0.82rem;text-align:center;padding:20px;">
-        No playlists yet. Create one!
+      <p style="color:var(--text-muted);font-size:0.82rem;
+        text-align:center;padding:20px;">
+        Koi playlist nahi. Pehle banayiye!
       </p>`;
   } else {
     STATE.playlists.forEach(pl => {
@@ -970,14 +969,10 @@ function openAddToPlaylistModal(song) {
 }
 
 /* ─────────────────────────────────────────
-   MODAL HELPERS
+   MODAL
 ───────────────────────────────────────── */
-function openModal(modal) {
-  if (modal) modal.classList.add('open');
-}
-function closeModal(modal) {
-  if (modal) modal.classList.remove('open');
-}
+function openModal(modal) { if (modal) modal.classList.add('open'); }
+function closeModal(modal) { if (modal) modal.classList.remove('open'); }
 
 /* ─────────────────────────────────────────
    CARD BUILDERS
@@ -991,19 +986,16 @@ function createMusicCard(song) {
   card.dataset.trackId = song.trackId;
   card.innerHTML = `
     <div class="music-card__art-wrap">
-      <img
-        class="music-card__art"
-        src="${artUrl}"
-        alt="${song.trackName}"
-        loading="lazy"
-      />
+      <img class="music-card__art" src="${artUrl}"
+        alt="${song.trackName}" loading="lazy"/>
       <div class="music-card__overlay">
         <button class="music-card__play-btn">
           <i data-lucide="play"></i>
         </button>
       </div>
       <button class="music-card__fav ${fav ? 'active' : ''}">
-        <i data-lucide="heart" style="fill:${fav ? 'currentColor' : 'none'}"></i>
+        <i data-lucide="heart"
+          style="fill:${fav ? 'currentColor' : 'none'}"></i>
       </button>
       <span class="music-card__duration">
         ${formatTime(song.trackTimeMillis)}
@@ -1019,7 +1011,7 @@ function createMusicCard(song) {
     .addEventListener('click', e => {
       e.stopPropagation();
       playSong(song);
-      showToast(`Playing: ${song.trackName}`, 'success', 'music');
+      showToast(`Chal raha hai: ${song.trackName}`, 'success', 'music');
     });
 
   card.addEventListener('click', () => playSong(song));
@@ -1055,15 +1047,10 @@ function createListItem(song, index) {
         ? `<div class="playing-bars">
              <span></span><span></span><span></span>
            </div>`
-        : `<span>${index + 1}</span>`
-      }
+        : `<span>${index + 1}</span>`}
     </div>
-    <img
-      class="list-item__art"
-      src="${artUrl}"
-      alt="${song.trackName}"
-      loading="lazy"
-    />
+    <img class="list-item__art" src="${artUrl}"
+      alt="${song.trackName}" loading="lazy"/>
     <div class="list-item__meta">
       <p class="list-item__title">${song.trackName || 'Unknown'}</p>
       <p class="list-item__artist">${song.artistName || 'Unknown'}</p>
@@ -1078,11 +1065,11 @@ function createListItem(song, index) {
           style="fill:${fav ? 'currentColor' : 'none'}"></i>
       </button>
       <button class="list-item__action-btn playlist-btn"
-        title="Add to Playlist">
+        title="Playlist mein add karo">
         <i data-lucide="folder-plus"></i>
       </button>
       <button class="list-item__action-btn queue-btn"
-        title="Add to Queue">
+        title="Queue mein add karo">
         <i data-lucide="list-plus"></i>
       </button>
     </div>
@@ -1136,11 +1123,9 @@ async function doSearch(query) {
   DOM.searchEmpty.style.display = 'none';
   DOM.resultCount.textContent = '';
 
-  // Reset title
   const titleEl = document.querySelector('#section-search .section__title');
   if (titleEl) titleEl.textContent = 'Search Results';
 
-  // Skeletons
   for (let i = 0; i < 8; i++) {
     const skel = document.createElement('div');
     skel.className = 'cards-row__skeleton';
@@ -1153,12 +1138,10 @@ async function doSearch(query) {
   DOM.searchSpinner.classList.remove('active');
 
   DOM.searchGrid.innerHTML = '';
-
   if (!results.length) {
     DOM.searchEmpty.style.display = 'flex';
     return;
   }
-
   DOM.resultCount.textContent = `${results.length} results`;
   results.forEach(song => DOM.searchGrid.appendChild(createMusicCard(song)));
 }
@@ -1198,6 +1181,7 @@ async function loadFeatured() {
     <div class="cards-row__skeleton"></div>
   `;
 
+  // Hindi hits featured
   const songs = await fetchITunes(CONFIG.FEATURED_QUERY, 10);
   STATE.featuredSongs = songs;
   DOM.featuredRow.innerHTML = '';
@@ -1205,10 +1189,14 @@ async function loadFeatured() {
 
   if (songs.length > 0) {
     const art = songs[0].artworkUrl100?.replace('100x100', '600x600') || '';
-    DOM.heroBannerBg.style.backgroundImage = `url(${art})`;
-    DOM.heroBannerTitle.textContent = songs[0].trackName;
-    DOM.heroBannerArtist.textContent = songs[0].artistName;
-    DOM.heroBannerArt.style.backgroundImage = `url(${art})`;
+    if (DOM.heroBannerBg)
+      DOM.heroBannerBg.style.backgroundImage = `url(${art})`;
+    if (DOM.heroBannerTitle)
+      DOM.heroBannerTitle.textContent = songs[0].trackName;
+    if (DOM.heroBannerArtist)
+      DOM.heroBannerArtist.textContent = songs[0].artistName;
+    if (DOM.heroBannerArt)
+      DOM.heroBannerArt.style.backgroundImage = `url(${art})`;
   }
 }
 
@@ -1224,7 +1212,8 @@ async function loadTrending() {
     s.style.height = '240px';
     DOM.trendingGrid.appendChild(s);
   }
-  const songs = await fetchITunes('trending songs 2024', 18);
+  // Bollywood trending
+  const songs = await fetchITunes(CONFIG.TRENDING_QUERY, 18);
   STATE.trendingSongs = songs;
   renderTrendingGrid(songs);
 }
@@ -1235,7 +1224,7 @@ function renderTrendingGrid(songs) {
 }
 
 async function loadGenre(genre) {
-  const query = CONFIG.GENRE_QUERIES[genre] || genre;
+  const query = CONFIG.GENRE_QUERIES[genre] || `${genre} hindi`;
   DOM.trendingGrid.innerHTML = '';
   for (let i = 0; i < 6; i++) {
     const s = document.createElement('div');
@@ -1250,7 +1239,7 @@ async function loadGenre(genre) {
 }
 
 /* ─────────────────────────────────────────
-   PROGRESS BAR & VOLUME INTERACTION
+   PROGRESS BAR & VOLUME
 ───────────────────────────────────────── */
 function setupProgressBar(barEl, callback) {
   let dragging = false;
@@ -1302,8 +1291,7 @@ function toggleTheme() {
 }
 
 function loadTheme() {
-  const saved = localStorage.getItem('melodix_theme');
-  if (saved === 'light') {
+  if (localStorage.getItem('melodix_theme') === 'light') {
     document.body.classList.add('light-theme');
     DOM.themeIcon?.setAttribute('data-lucide', 'moon');
   }
@@ -1316,9 +1304,7 @@ document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return;
   switch (e.code) {
     case 'Space':
-      e.preventDefault();
-      togglePlayPause();
-      break;
+      e.preventDefault(); togglePlayPause(); break;
     case 'ArrowRight':
       e.preventDefault();
       if (STATE.ytReady && STATE.ytPlayer)
@@ -1333,24 +1319,14 @@ document.addEventListener('keydown', e => {
       break;
     case 'ArrowUp':
       e.preventDefault();
-      setVolume(Math.min(100, STATE.volume * 100 + 10));
-      break;
+      setVolume(Math.min(100, STATE.volume * 100 + 10)); break;
     case 'ArrowDown':
       e.preventDefault();
-      setVolume(Math.max(0, STATE.volume * 100 - 10));
-      break;
-    case 'KeyM':
-      toggleMute();
-      break;
-    case 'KeyN':
-      playNext();
-      break;
-    case 'KeyP':
-      playPrev();
-      break;
-    case 'Escape':
-      closeExpandedPlayer();
-      break;
+      setVolume(Math.max(0, STATE.volume * 100 - 10)); break;
+    case 'KeyM': toggleMute(); break;
+    case 'KeyN': playNext(); break;
+    case 'KeyP': playPrev(); break;
+    case 'Escape': closeExpandedPlayer(); break;
   }
 });
 
@@ -1397,7 +1373,7 @@ function initEventListeners() {
     });
   });
 
-  // Hero Banner
+  // Hero
   DOM.heroBannerPlay?.addEventListener('click', () => {
     if (STATE.featuredSongs[0]) playSong(STATE.featuredSongs[0]);
   });
@@ -1408,12 +1384,10 @@ function initEventListeners() {
   // Mini Player
   DOM.miniPlayerExpand?.addEventListener('click', openExpandedPlayer);
   DOM.miniPlayPauseBtn?.addEventListener('click', e => {
-    e.stopPropagation();
-    togglePlayPause();
+    e.stopPropagation(); togglePlayPause();
   });
   DOM.miniNextBtn?.addEventListener('click', e => {
-    e.stopPropagation();
-    playNext();
+    e.stopPropagation(); playNext();
   });
 
   // Expanded Player
@@ -1428,7 +1402,9 @@ function initEventListeners() {
     if (STATE.currentSong) {
       toggleFavorite(STATE.currentSong);
       DOM.expandedFavBtn.classList.add('animate-heartbeat');
-      setTimeout(() => DOM.expandedFavBtn.classList.remove('animate-heartbeat'), 600);
+      setTimeout(() =>
+        DOM.expandedFavBtn.classList.remove('animate-heartbeat'), 600
+      );
     }
   });
 
@@ -1439,28 +1415,29 @@ function initEventListeners() {
     if (STATE.currentSong) openAddToPlaylistModal(STATE.currentSong);
   });
 
-  // Progress bar
-  if (DOM.expProgressBar) {
+  // Progress
+  if (DOM.expProgressBar)
     setupProgressBar(DOM.expProgressBar, pct => seekTo(pct));
-  }
 
-  // Volume slider
-  if (DOM.expVolumeSlider && DOM.expVolumeFill) {
+  // Volume
+  if (DOM.expVolumeSlider && DOM.expVolumeFill)
     setupVolumeSlider(DOM.expVolumeSlider, DOM.expVolumeFill);
-  }
-  if (DOM.expVolumeFill) {
+  if (DOM.expVolumeFill)
     DOM.expVolumeFill.style.width = `${STATE.volume * 100}%`;
-  }
 
   // Playlist Modal
   DOM.createPlaylistBtn?.addEventListener('click', () => {
-    DOM.modalTitle.textContent = 'Create Playlist';
+    DOM.modalTitle.textContent = 'Naya Playlist';
     DOM.playlistNameInput.value = '';
     openModal(DOM.playlistModal);
     setTimeout(() => DOM.playlistNameInput.focus(), 350);
   });
-  DOM.modalClose?.addEventListener('click', () => closeModal(DOM.playlistModal));
-  DOM.modalCancel?.addEventListener('click', () => closeModal(DOM.playlistModal));
+  DOM.modalClose?.addEventListener('click', () =>
+    closeModal(DOM.playlistModal)
+  );
+  DOM.modalCancel?.addEventListener('click', () =>
+    closeModal(DOM.playlistModal)
+  );
   DOM.modalConfirm?.addEventListener('click', () => {
     createPlaylist(DOM.playlistNameInput.value);
     closeModal(DOM.playlistModal);
@@ -1478,7 +1455,7 @@ function initEventListeners() {
   );
   DOM.createNewFromAdd?.addEventListener('click', () => {
     closeModal(DOM.addToPlaylistModal);
-    DOM.modalTitle.textContent = 'Create Playlist';
+    DOM.modalTitle.textContent = 'Naya Playlist';
     DOM.playlistNameInput.value = '';
     openModal(DOM.playlistModal);
   });
@@ -1486,7 +1463,8 @@ function initEventListeners() {
     if (e.target === DOM.playlistModal) closeModal(DOM.playlistModal);
   });
   DOM.addToPlaylistModal?.addEventListener('click', e => {
-    if (e.target === DOM.addToPlaylistModal) closeModal(DOM.addToPlaylistModal);
+    if (e.target === DOM.addToPlaylistModal)
+      closeModal(DOM.addToPlaylistModal);
   });
 
   // Clear buttons
@@ -1494,19 +1472,19 @@ function initEventListeners() {
     STATE.favorites = [];
     saveFavorites();
     renderFavorites();
-    showToast('Favorites cleared', 'info', 'trash-2');
+    showToast('Favorites saaf ho gayi', 'info', 'trash-2');
   });
   $('clearQueueBtn')?.addEventListener('click', () => {
     STATE.queue = [];
     renderQueue();
-    showToast('Queue cleared', 'info', 'x');
+    showToast('Queue saaf ho gayi', 'info', 'x');
   });
   $('clearHistoryBtn')?.addEventListener('click', () => {
     STATE.history = [];
     saveHistory();
     renderHistory();
     renderRecentList();
-    showToast('History cleared', 'info', 'trash-2');
+    showToast('History saaf ho gayi', 'info', 'trash-2');
   });
 
   // Sort pills
@@ -1522,24 +1500,26 @@ function initEventListeners() {
    INIT
 ───────────────────────────────────────── */
 async function init() {
-  console.log('🎵 Melodix v2.1 Starting...');
+  console.log('🎵 Melodix v2.2 — Shuru Ho Raha Hai...');
 
   loadTheme();
   lucide.createIcons();
   initWaveform();
-
   initEventListeners();
 
-  // Preloader hide — 1.2 sec mein
+  if (DOM.expVolumeFill)
+    DOM.expVolumeFill.style.width = `${STATE.volume * 100}%`;
+
+  // Preloader
   setTimeout(() => {
     DOM.preloader?.classList.add('hidden');
-    console.log('✅ Preloader hidden');
+    console.log('✅ Preloader band');
   }, 1200);
 
-  // Data load karo
+  // Hindi songs load karo
   try {
     await loadFeatured();
-    console.log('✅ Featured songs loaded');
+    console.log('✅ Gaane load ho gaye');
   } catch (e) {
     console.error('Load error:', e);
   }
@@ -1553,11 +1533,10 @@ async function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-// Safety net — 5 sec baad force hide
+// Safety
 setTimeout(() => {
   const p = document.getElementById('preloader');
   if (p && !p.classList.contains('hidden')) {
     p.classList.add('hidden');
-    console.log('⚠️ Force preloader hide');
   }
 }, 5000);
