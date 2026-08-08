@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Melodix — Premium Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <i data-lucide="music-2"></i>
+      </div>
+      <p class="preloader__text">Melodix</p>
+      <div class="preloader__bar">
+        <div class="preloader__bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise-overlay"></div>
+
+  <!-- AMBIENT BLOBS -->
+  <div class="ambient-bg">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="app-wrapper">
+
+    <!-- ======================================
+         TOPBAR
+    ======================================= -->
+    <header class="topbar">
+      <div class="topbar__logo">
+        <div class="topbar__logo-icon">
+          <i data-lucide="music-2"></i>
+        </div>
+        <span class="topbar__logo-text">Melodix</span>
+      </div>
+
+      <div class="topbar__actions">
+        <!-- Search Btn -->
+        <button class="topbar__btn" id="searchToggleBtn" title="Search">
+          <i data-lucide="search"></i>
+        </button>
+        <button class="topbar__btn" id="themeToggle" title="Toggle Theme">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <button class="topbar__btn" title="Notifications">
+          <i data-lucide="bell"></i>
+          <span class="topbar__notif-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- SEARCH BAR (Dropdown style) -->
+    <div class="search-bar-dropdown" id="searchBarDropdown">
+      <div class="search-bar-dropdown__inner">
+        <i data-lucide="search" class="search-bar-dropdown__icon"></i>
+        <input
+          type="text"
+          class="search-bar-dropdown__input"
+          id="searchInput"
+          placeholder="Search songs, artists..."
+          autocomplete="off"
+        />
+        <div class="search-spinner" id="searchSpinner">
+          <i data-lucide="loader-2"></i>
+        </div>
+        <button class="search-bar-dropdown__close" id="searchCloseBtn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================
+         MAIN CONTENT
+    ======================================= -->
+    <main class="main" id="main">
+      <div class="content-wrapper">
+
+        <!-- ---- SECTION: HOME ---- -->
+        <section class="section active" id="section-home">
+
+          <!-- Hero Banner -->
+          <div class="hero-banner" id="heroBanner">
+            <div class="hero-banner__bg" id="heroBannerBg"></div>
+            <div class="hero-banner__overlay"></div>
+            <div class="hero-banner__content">
+              <span class="hero-banner__tag">
+                <i data-lucide="zap"></i> Now Trending
+              </span>
+              <h1 class="hero-banner__title" id="heroBannerTitle">Discover Music</h1>
+              <p class="hero-banner__artist" id="heroBannerArtist">Find your vibe today</p>
+              <div class="hero-banner__actions">
+                <button class="btn btn--primary" id="heroBannerPlay">
+                  <i data-lucide="play"></i> Play Now
+                </button>
+                <button class="btn btn--ghost" id="heroBannerAdd">
+                  <i data-lucide="plus"></i> Add to Queue
+                </button>
+              </div>
+            </div>
+            <div class="hero-banner__vinyl" id="heroBannerVinyl">
+              <div class="vinyl">
+                <div class="vinyl__disc">
+                  <div class="vinyl__art" id="heroBannerArt"></div>
+                  <div class="vinyl__center"></div>
+                </div>
+                <div class="vinyl__shadow"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured -->
+          <div class="section__header">
+            <h2 class="section__title">Featured Today</h2>
+            <button class="section__see-all" data-section-target="trending">
+              See All <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+          <div class="cards-row" id="featuredRow">
+            <div class="cards-row__skeleton"></div>
+            <div class="cards-row__skeleton"></div>
+            <div class="cards-row__skeleton"></div>
+            <div class="cards-row__skeleton"></div>
+          </div>
+
+          <!-- Recently Played -->
+          <div class="section__header">
+            <h2 class="section__title">Recently Played</h2>
+          </div>
+          <div class="list-view" id="recentList">
+            <div class="empty-state" id="recentEmpty">
+              <i data-lucide="clock"></i>
+              <p>No history yet. Start listening!</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ---- SECTION: TRENDING ---- -->
+        <section class="section" id="section-trending">
+          <div class="section__header">
+            <h2 class="section__title">Trending Now</h2>
+            <div class="sort-pills">
+              <button class="sort-pill active">Today</button>
+              <button class="sort-pill">Week</button>
+              <button class="sort-pill">Month</button>
+            </div>
+          </div>
+          <!-- Genre chips here too -->
+          <div class="genre-chips" style="margin-bottom:20px;">
+            <button class="genre-chip active" data-genre="pop">Pop</button>
+            <button class="genre-chip" data-genre="hiphop">Hip-Hop</button>
+            <button class="genre-chip" data-genre="electronic">Electronic</button>
+            <button class="genre-chip" data-genre="rock">Rock</button>
+            <button class="genre-chip" data-genre="jazz">Jazz</button>
+            <button class="genre-chip" data-genre="classical">Classical</button>
+          </div>
+          <div class="cards-grid" id="trendingGrid"></div>
+        </section>
+
+        <!-- ---- SECTION: FAVORITES ---- -->
+        <section class="section" id="section-favorites">
+          <div class="section__header">
+            <h2 class="section__title">Your Favorites</h2>
+            <button class="btn btn--ghost btn--sm" id="clearFavBtn">
+              <i data-lucide="trash-2"></i> Clear All
+            </button>
+          </div>
+          <div class="list-view" id="favoritesList">
+            <div class="empty-state" id="favEmpty">
+              <i data-lucide="heart"></i>
+              <p>No favorites yet. Heart a song!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- SECTION: PLAYLISTS ---- -->
+        <section class="section" id="section-playlists">
+          <div class="section__header">
+            <h2 class="section__title">Your Playlists</h2>
+            <button class="btn btn--primary btn--sm" id="createPlaylistBtn">
+              <i data-lucide="plus"></i> New Playlist
+            </button>
+          </div>
+          <div class="playlists-grid" id="playlistsGrid">
+            <div class="empty-state" id="playlistEmpty">
+              <i data-lucide="list-music"></i>
+              <p>No playlists yet. Create one!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- SECTION: QUEUE ---- -->
+        <section class="section" id="section-queue">
+          <div class="section__header">
+            <h2 class="section__title">Play Queue</h2>
+            <button class="btn btn--ghost btn--sm" id="clearQueueBtn">
+              <i data-lucide="x"></i> Clear
+            </button>
+          </div>
+          <div class="list-view" id="queueList">
+            <div class="empty-state" id="queueEmpty">
+              <i data-lucide="list-music"></i>
+              <p>Queue is empty. Add some songs!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- SECTION: HISTORY ---- -->
+        <section class="section" id="section-history">
+          <div class="section__header">
+            <h2 class="section__title">Play History</h2>
+            <button class="btn btn--ghost btn--sm" id="clearHistoryBtn">
+              <i data-lucide="trash-2"></i> Clear
+            </button>
+          </div>
+          <div class="list-view" id="historyList">
+            <div class="empty-state" id="historyEmpty">
+              <i data-lucide="history"></i>
+              <p>Nothing played yet.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- SECTION: SEARCH RESULTS ---- -->
+        <section class="section" id="section-search">
+          <div class="section__header">
+            <h2 class="section__title">
+              Search Results
+              <span class="result-count" id="resultCount"></span>
+            </h2>
+          </div>
+          <div class="cards-grid" id="searchGrid"></div>
+          <div class="empty-state" id="searchEmpty" style="display:none">
+            <i data-lucide="search-x"></i>
+            <p>No results found.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ======================================
+         MINI PLAYER (Bottom Bar - Simple)
+    ======================================= -->
+    <div class="mini-player" id="miniPlayer">
+      <div class="mini-player__glass"></div>
+
+      <!-- Art + Info — Click to expand -->
+      <div class="mini-player__left" id="miniPlayerExpand">
+        <div class="mini-player__art-wrap">
+          <img src="" alt="" class="mini-player__art" id="miniPlayerArt"/>
+          <div class="mini-player__art-placeholder">
+            <i data-lucide="music"></i>
+          </div>
+        </div>
+        <div class="mini-player__meta">
+          <p class="mini-player__title" id="miniPlayerTitle">Select a song</p>
+          <p class="mini-player__artist" id="miniPlayerArtist">—</p>
+        </div>
+      </div>
+
+      <!-- Progress Line (thin) -->
+      <div class="mini-player__progress-line">
+        <div class="mini-player__progress-fill" id="miniProgressFill"></div>
+      </div>
+
+      <!-- Controls — Right -->
+      <div class="mini-player__controls">
+        <button class="mini-ctrl-btn" id="miniPlayPauseBtn">
+          <i data-lucide="play" id="miniPlayIcon"></i>
+        </button>
+        <button class="mini-ctrl-btn" id="miniNextBtn">
+          <i data-lucide="skip-forward"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================
+         BOTTOM NAVIGATION
+    ======================================= -->
+    <nav class="bottom-nav" id="bottomNav">
+      <div class="bottom-nav__glass"></div>
+
+      <button class="bottom-nav__item active" data-section="home">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+        <div class="bottom-nav__indicator"></div>
+      </button>
+
+      <button class="bottom-nav__item" data-section="trending">
+        <i data-lucide="trending-up"></i>
+        <span>Trending</span>
+      </button>
+
+      <button class="bottom-nav__item" data-section="playlists">
+        <i data-lucide="list-music"></i>
+        <span>Playlists</span>
+      </button>
+
+      <button class="bottom-nav__item" data-section="favorites">
+        <i data-lucide="heart"></i>
+        <span>Favorites</span>
+      </button>
+
+      <button class="bottom-nav__item" data-section="history">
+        <i data-lucide="history"></i>
+        <span>History</span>
+      </button>
+
+    </nav>
+
+  </div><!-- /app-wrapper -->
+
+  <!-- ======================================
+       EXPANDED PLAYER (FULL SCREEN)
+  ======================================= -->
+  <div class="expanded-player" id="expandedPlayer">
+    <div class="expanded-player__bg" id="expandedBg"></div>
+    <div class="expanded-player__overlay"></div>
+
+    <!-- Close / Back -->
+    <button class="expanded-player__close" id="collapseBtn">
+      <i data-lucide="chevron-down"></i>
+    </button>
+
+    <!-- More options -->
+    <button class="expanded-player__more" id="expandedMoreBtn">
+      <i data-lucide="more-horizontal"></i>
+    </button>
+
+    <div class="expanded-player__content">
+
+      <!-- Album Art Vinyl -->
+      <div class="expanded-player__art-section">
+        <div class="expanded-vinyl">
+          <div class="expanded-vinyl__disc" id="expandedDisc">
+            <img src="" alt="" class="expanded-vinyl__art" id="expandedArt"/>
+            <div class="expanded-vinyl__center"></div>
+          </div>
+          <div class="expanded-vinyl__glow" id="expandedGlow"></div>
+        </div>
+      </div>
+
+      <!-- Info + Controls -->
+      <div class="expanded-player__info-section">
+
+        <!-- Title + Fav -->
+        <div class="expanded-player__header">
+          <div class="expanded-player__titles">
+            <h2 class="expanded-player__title" id="expandedTitle">—</h2>
+            <p class="expanded-player__artist" id="expandedArtist">—</p>
+          </div>
+          <button class="fav-btn-round" id="expandedFavBtn">
+            <i data-lucide="heart" id="expandedFavIcon"></i>
+          </button>
+        </div>
+
+        <!-- Waveform -->
+        <div class="waveform" id="waveform"></div>
+
+        <!-- Progress -->
+        <div class="expanded-progress">
+          <div class="progress-bar progress-bar--lg" id="expProgressBar">
+            <div class="progress-bar__fill" id="expProgressFill"></div>
+            <div class="progress-bar__thumb" id="expProgressThumb"></div>
+          </div>
+          <div class="expanded-progress__times">
+            <span id="expCurrentTime">0:00</span>
+            <span id="expTotalTime">0:00</span>
+          </div>
+        </div>
+
+        <!-- Main Controls -->
+        <div class="expanded-controls">
+          <button class="ctrl-btn" id="expShuffleBtn">
+            <i data-lucide="shuffle"></i>
+          </button>
+          <button class="ctrl-btn ctrl-btn--md" id="expPrevBtn">
+            <i data-lucide="skip-back"></i>
+          </button>
+          <button class="ctrl-btn ctrl-btn--play ctrl-btn--play-lg" id="expPlayPauseBtn">
+            <i data-lucide="play" id="expPlayIcon"></i>
+          </button>
+          <button class="ctrl-btn ctrl-btn--md" id="expNextBtn">
+            <i data-lucide="skip-forward"></i>
+          </button>
+          <button class="ctrl-btn" id="expRepeatBtn">
+            <i data-lucide="repeat"></i>
+          </button>
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="expanded-actions">
+          <button class="expanded-action-btn" id="expAddQueueBtn">
+            <i data-lucide="list-plus"></i>
+            <span>Queue</span>
+          </button>
+          <button class="expanded-action-btn" id="expAddPlaylistBtn">
+            <i data-lucide="folder-plus"></i>
+            <span>Playlist</span>
+          </button>
+          <div class="volume-row">
+            <i data-lucide="volume-1" class="vol-icon"></i>
+            <div class="volume-slider" id="expVolumeSlider">
+              <div class="volume-slider__fill" id="expVolumeFill"></div>
+              <div class="volume-slider__thumb"></div>
+            </div>
+            <i data-lucide="volume-2" class="vol-icon"></i>
+          </div>
+        </div>
+
+        <!-- Song Details -->
+        <div class="song-details-card" id="songDetailsCard">
+          <div class="song-details-card__row">
+            <span>Genre</span><span id="detailGenre">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Release</span><span id="detailRelease">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Album</span><span id="detailAlbumFull">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Duration</span><span id="detailDuration">—</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       PLAYLIST MODAL
+  ======================================= -->
+  <div class="modal-overlay" id="playlistModal">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Create Playlist</h3>
+        <button class="modal__close" id="modalClose">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal__body">
+        <input
+          type="text"
+          class="modal__input"
+          id="playlistNameInput"
+          placeholder="Playlist name..."
+          maxlength="40"
+        />
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="modalCancel">Cancel</button>
+        <button class="btn btn--primary" id="modalConfirm">
+          <i data-lucide="check"></i> Create
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD TO PLAYLIST MODAL -->
+  <div class="modal-overlay" id="addToPlaylistModal">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Add to Playlist</h3>
+        <button class="modal__close" id="addModalClose">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal__body">
+        <div class="playlist-select-list" id="playlistSelectList">
+          <!-- JS fills -->
+        </div>
+        <button class="btn btn--ghost" style="width:100%;margin-top:8px;" id="createNewFromAdd">
+          <i data-lucide="plus"></i> Create New Playlist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- YouTube Player (Hidden) -->
+  <div style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;">
+    <div id="ytPlayer"></div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
