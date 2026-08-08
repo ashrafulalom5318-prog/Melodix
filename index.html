@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Melodix — Premium Music</title>
+
+  <!-- ========== FONTS ========== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"/>
+
+  <!-- ========== LUCIDE ICONS ========== -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- ========== REMIX ICONS ========== -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+
+  <!-- ========== CSS ========== -->
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+
+  <!-- ======================================
+       PRELOADER
+  ======================================= -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <i data-lucide="music-2"></i>
+      </div>
+      <p class="preloader__text">Melodix</p>
+      <div class="preloader__bar">
+        <div class="preloader__bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       NOISE OVERLAY
+  ======================================= -->
+  <div class="noise-overlay"></div>
+
+  <!-- ======================================
+       AMBIENT BACKGROUND BLOBS
+  ======================================= -->
+  <div class="ambient-bg">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+  </div>
+
+  <!-- ======================================
+       SIDEBAR / NAV
+  ======================================= -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Logo -->
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        <i data-lucide="music-2"></i>
+      </div>
+      <span class="sidebar__logo-text">Melodix</span>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="sidebar__search">
+      <i data-lucide="search" class="sidebar__search-icon"></i>
+      <input
+        type="text"
+        class="sidebar__search-input"
+        id="searchInput"
+        placeholder="Search songs, artists..."
+        autocomplete="off"
+      />
+      <div class="search-spinner" id="searchSpinner">
+        <i data-lucide="loader-2"></i>
+      </div>
+    </div>
+
+    <!-- Nav Links -->
+    <nav class="sidebar__nav">
+      <p class="sidebar__nav-label">Menu</p>
+
+      <a class="sidebar__nav-item active" data-section="home" href="#">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+        <div class="nav-item__indicator"></div>
+      </a>
+
+      <a class="sidebar__nav-item" data-section="trending" href="#">
+        <i data-lucide="trending-up"></i>
+        <span>Trending</span>
+      </a>
+
+      <a class="sidebar__nav-item" data-section="favorites" href="#">
+        <i data-lucide="heart"></i>
+        <span>Favorites</span>
+        <span class="nav-badge" id="favBadge">0</span>
+      </a>
+
+      <a class="sidebar__nav-item" data-section="queue" href="#">
+        <i data-lucide="list-music"></i>
+        <span>Queue</span>
+      </a>
+
+      <a class="sidebar__nav-item" data-section="history" href="#">
+        <i data-lucide="history"></i>
+        <span>History</span>
+      </a>
+    </nav>
+
+    <!-- Genres -->
+    <div class="sidebar__genres">
+      <p class="sidebar__nav-label">Genres</p>
+      <div class="genre-chips">
+        <button class="genre-chip active" data-genre="pop">Pop</button>
+        <button class="genre-chip" data-genre="hiphop">Hip-Hop</button>
+        <button class="genre-chip" data-genre="electronic">Electronic</button>
+        <button class="genre-chip" data-genre="rock">Rock</button>
+        <button class="genre-chip" data-genre="jazz">Jazz</button>
+        <button class="genre-chip" data-genre="classical">Classical</button>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom -->
+    <div class="sidebar__bottom">
+      <div class="sidebar__user">
+        <div class="sidebar__user-avatar">
+          <i data-lucide="user"></i>
+        </div>
+        <div class="sidebar__user-info">
+          <p class="sidebar__user-name">Guest User</p>
+          <p class="sidebar__user-plan">Free Plan</p>
+        </div>
+        <button class="sidebar__user-settings">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ======================================
+       MAIN CONTENT
+  ======================================= -->
+  <main class="main" id="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="topbar__menu-btn" id="menuToggle">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="topbar__title" id="topbarTitle">
+        Good Evening 🎵
+      </div>
+
+      <div class="topbar__actions">
+        <button class="topbar__btn" id="themeToggle" title="Toggle Theme">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <button class="topbar__btn" title="Notifications">
+          <i data-lucide="bell"></i>
+          <span class="topbar__notif-dot"></span>
+        </button>
+        <button class="topbar__btn" title="Cast">
+          <i data-lucide="cast"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============= CONTENT SECTIONS ============= -->
+    <div class="content-wrapper">
+
+      <!-- ---- SECTION: HOME ---- -->
+      <section class="section active" id="section-home">
+
+        <!-- Hero Banner -->
+        <div class="hero-banner" id="heroBanner">
+          <div class="hero-banner__bg" id="heroBannerBg"></div>
+          <div class="hero-banner__overlay"></div>
+          <div class="hero-banner__content">
+            <span class="hero-banner__tag">
+              <i data-lucide="zap"></i> Now Trending
+            </span>
+            <h1 class="hero-banner__title" id="heroBannerTitle">
+              Discover Music
+            </h1>
+            <p class="hero-banner__artist" id="heroBannerArtist">
+              Find your vibe today
+            </p>
+            <div class="hero-banner__actions">
+              <button class="btn btn--primary" id="heroBannerPlay">
+                <i data-lucide="play"></i>
+                Play Now
+              </button>
+              <button class="btn btn--ghost" id="heroBannerAdd">
+                <i data-lucide="plus"></i>
+                Add to Queue
+              </button>
+            </div>
+          </div>
+          <!-- Hero Vinyl -->
+          <div class="hero-banner__vinyl" id="heroBannerVinyl">
+            <div class="vinyl">
+              <div class="vinyl__disc">
+                <div class="vinyl__art" id="heroBannerArt"></div>
+                <div class="vinyl__center"></div>
+              </div>
+              <div class="vinyl__shadow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Row -->
+        <div class="section__header">
+          <h2 class="section__title">Featured Today</h2>
+          <button class="section__see-all" data-section-target="trending">
+            See All <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+        <div class="cards-row" id="featuredRow">
+          <!-- JS se fill hoga -->
+          <div class="cards-row__skeleton"></div>
+          <div class="cards-row__skeleton"></div>
+          <div class="cards-row__skeleton"></div>
+          <div class="cards-row__skeleton"></div>
+        </div>
+
+        <!-- Recently Played -->
+        <div class="section__header">
+          <h2 class="section__title">Recently Played</h2>
+        </div>
+        <div class="list-view" id="recentList">
+          <div class="empty-state" id="recentEmpty">
+            <i data-lucide="clock"></i>
+            <p>No history yet. Start listening!</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ---- SECTION: TRENDING ---- -->
+      <section class="section" id="section-trending">
+        <div class="section__header">
+          <h2 class="section__title">Trending Now</h2>
+          <div class="sort-pills">
+            <button class="sort-pill active">Today</button>
+            <button class="sort-pill">Week</button>
+            <button class="sort-pill">Month</button>
+          </div>
+        </div>
+        <div class="cards-grid" id="trendingGrid">
+          <!-- JS fills -->
+        </div>
+      </section>
+
+      <!-- ---- SECTION: FAVORITES ---- -->
+      <section class="section" id="section-favorites">
+        <div class="section__header">
+          <h2 class="section__title">Your Favorites</h2>
+          <button class="btn btn--ghost btn--sm" id="clearFavBtn">
+            <i data-lucide="trash-2"></i> Clear All
+          </button>
+        </div>
+        <div class="list-view" id="favoritesList">
+          <div class="empty-state" id="favEmpty">
+            <i data-lucide="heart"></i>
+            <p>No favorites yet. Heart a song!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- SECTION: QUEUE ---- -->
+      <section class="section" id="section-queue">
+        <div class="section__header">
+          <h2 class="section__title">Play Queue</h2>
+          <button class="btn btn--ghost btn--sm" id="clearQueueBtn">
+            <i data-lucide="x"></i> Clear
+          </button>
+        </div>
+        <div class="list-view" id="queueList">
+          <div class="empty-state" id="queueEmpty">
+            <i data-lucide="list-music"></i>
+            <p>Queue is empty. Add some songs!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- SECTION: HISTORY ---- -->
+      <section class="section" id="section-history">
+        <div class="section__header">
+          <h2 class="section__title">Play History</h2>
+          <button class="btn btn--ghost btn--sm" id="clearHistoryBtn">
+            <i data-lucide="trash-2"></i> Clear
+          </button>
+        </div>
+        <div class="list-view" id="historyList">
+          <div class="empty-state" id="historyEmpty">
+            <i data-lucide="history"></i>
+            <p>Nothing played yet.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- SECTION: SEARCH RESULTS ---- -->
+      <section class="section" id="section-search">
+        <div class="section__header">
+          <h2 class="section__title">
+            Search Results
+            <span class="result-count" id="resultCount"></span>
+          </h2>
+        </div>
+        <div class="cards-grid" id="searchGrid">
+          <!-- JS fills -->
+        </div>
+        <div class="empty-state" id="searchEmpty" style="display:none">
+          <i data-lucide="search-x"></i>
+          <p>No results found. Try different keywords.</p>
+        </div>
+      </section>
+
+    </div><!-- /content-wrapper -->
+  </main>
+
+  <!-- ======================================
+       NOW PLAYING PLAYER (BOTTOM BAR)
+  ======================================= -->
+  <div class="player" id="player">
+    <div class="player__glass"></div>
+
+    <!-- Song Info -->
+    <div class="player__info">
+      <div class="player__art-wrap">
+        <img src="" alt="" class="player__art" id="playerArt"/>
+        <div class="player__art-placeholder">
+          <i data-lucide="music"></i>
+        </div>
+        <div class="player__art-ring"></div>
+      </div>
+      <div class="player__meta">
+        <p class="player__title" id="playerTitle">Select a song</p>
+        <p class="player__artist" id="playerArtist">—</p>
+      </div>
+      <button class="player__fav-btn" id="playerFavBtn" title="Add to Favorites">
+        <i data-lucide="heart" id="playerFavIcon"></i>
+      </button>
+    </div>
+
+    <!-- Controls -->
+    <div class="player__center">
+      <div class="player__controls">
+        <button class="ctrl-btn" id="shuffleBtn" title="Shuffle">
+          <i data-lucide="shuffle"></i>
+        </button>
+        <button class="ctrl-btn" id="prevBtn" title="Previous">
+          <i data-lucide="skip-back"></i>
+        </button>
+        <button class="ctrl-btn ctrl-btn--play" id="playPauseBtn">
+          <i data-lucide="play" id="playIcon"></i>
+        </button>
+        <button class="ctrl-btn" id="nextBtn" title="Next">
+          <i data-lucide="skip-forward"></i>
+        </button>
+        <button class="ctrl-btn" id="repeatBtn" title="Repeat">
+          <i data-lucide="repeat"></i>
+        </button>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="player__progress">
+        <span class="player__time" id="currentTime">0:00</span>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-bar__fill" id="progressFill"></div>
+          <div class="progress-bar__thumb" id="progressThumb"></div>
+        </div>
+        <span class="player__time" id="totalTime">0:00</span>
+      </div>
+    </div>
+
+    <!-- Volume & Extra -->
+    <div class="player__right">
+      <button class="ctrl-btn ctrl-btn--sm" id="addQueueBtn" title="Add to Queue">
+        <i data-lucide="list-plus"></i>
+      </button>
+      <button class="ctrl-btn ctrl-btn--sm" id="lyricsBtn" title="Lyrics">
+        <i data-lucide="mic-2"></i>
+      </button>
+      <div class="volume-ctrl">
+        <button class="ctrl-btn ctrl-btn--sm" id="muteBtn">
+          <i data-lucide="volume-2" id="volumeIcon"></i>
+        </button>
+        <div class="volume-slider" id="volumeSlider">
+          <div class="volume-slider__fill" id="volumeFill"></div>
+          <div class="volume-slider__thumb" id="volumeThumb"></div>
+        </div>
+      </div>
+      <button class="ctrl-btn ctrl-btn--sm" id="expandBtn" title="Expand Player">
+        <i data-lucide="maximize-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================
+       EXPANDED PLAYER (FULL SCREEN)
+  ======================================= -->
+  <div class="expanded-player" id="expandedPlayer">
+    <div class="expanded-player__bg" id="expandedBg"></div>
+    <div class="expanded-player__overlay"></div>
+
+    <button class="expanded-player__close" id="collapseBtn">
+      <i data-lucide="chevron-down"></i>
+    </button>
+
+    <div class="expanded-player__content">
+      <!-- Left: Album Art -->
+      <div class="expanded-player__left">
+        <div class="expanded-vinyl">
+          <div class="expanded-vinyl__disc" id="expandedDisc">
+            <img src="" alt="" class="expanded-vinyl__art" id="expandedArt"/>
+            <div class="expanded-vinyl__center"></div>
+          </div>
+          <div class="expanded-vinyl__glow" id="expandedGlow"></div>
+        </div>
+      </div>
+
+      <!-- Right: Info + Controls -->
+      <div class="expanded-player__right">
+        <div class="expanded-player__header">
+          <div>
+            <h2 class="expanded-player__title" id="expandedTitle">—</h2>
+            <p class="expanded-player__artist" id="expandedArtist">—</p>
+            <p class="expanded-player__album" id="expandedAlbum">—</p>
+          </div>
+          <button class="player__fav-btn" id="expandedFavBtn">
+            <i data-lucide="heart" id="expandedFavIcon"></i>
+          </button>
+        </div>
+
+        <!-- Waveform Visualizer -->
+        <div class="waveform" id="waveform">
+          <!-- JS creates bars -->
+        </div>
+
+        <!-- Progress -->
+        <div class="player__progress expanded-progress">
+          <span class="player__time" id="expCurrentTime">0:00</span>
+          <div class="progress-bar progress-bar--lg" id="expProgressBar">
+            <div class="progress-bar__fill" id="expProgressFill"></div>
+            <div class="progress-bar__thumb" id="expProgressThumb"></div>
+          </div>
+          <span class="player__time" id="expTotalTime">0:00</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="player__controls expanded-controls">
+          <button class="ctrl-btn" id="expShuffleBtn">
+            <i data-lucide="shuffle"></i>
+          </button>
+          <button class="ctrl-btn" id="expPrevBtn">
+            <i data-lucide="skip-back"></i>
+          </button>
+          <button class="ctrl-btn ctrl-btn--play ctrl-btn--play-lg" id="expPlayPauseBtn">
+            <i data-lucide="play" id="expPlayIcon"></i>
+          </button>
+          <button class="ctrl-btn" id="expNextBtn">
+            <i data-lucide="skip-forward"></i>
+          </button>
+          <button class="ctrl-btn" id="expRepeatBtn">
+            <i data-lucide="repeat"></i>
+          </button>
+        </div>
+
+        <!-- Volume -->
+        <div class="expanded-volume">
+          <i data-lucide="volume-1" class="volume-icon-sm"></i>
+          <div class="volume-slider volume-slider--lg" id="expVolumeSlider">
+            <div class="volume-slider__fill" id="expVolumeFill"></div>
+            <div class="volume-slider__thumb" id="expVolumeThumb"></div>
+          </div>
+          <i data-lucide="volume-2" class="volume-icon-sm"></i>
+        </div>
+
+        <!-- Song Details from iTunes -->
+        <div class="song-details-card" id="songDetailsCard">
+          <div class="song-details-card__row">
+            <span>Genre</span>
+            <span id="detailGenre">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Release</span>
+            <span id="detailRelease">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Album</span>
+            <span id="detailAlbumFull">—</span>
+          </div>
+          <div class="song-details-card__row">
+            <span>Duration</span>
+            <span id="detailDuration">—</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       TOAST NOTIFICATIONS
+  ======================================= -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ======================================
+       YOUTUBE PLAYER (HIDDEN)
+  ======================================= -->
+  <div id="ytPlayerWrap" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;">
+    <div id="ytPlayer"></div>
+  </div>
+
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
